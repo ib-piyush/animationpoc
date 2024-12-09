@@ -16,7 +16,7 @@ export default function App() {
   const [sentenceReversed, setReverseSentence] = useState(false);
   const [showReverseAnimation, setShowReverseAnimation] = useState(false);
 
-  const sentence = "  Over half of the population suffers from the diet related diseases...";
+  const sentence = "  Over half of the suffers from the diet related diseases...";
   const sentences = [
     "Get rid of acne",
     "Reduce body fat",
@@ -76,8 +76,10 @@ export default function App() {
 
           // After the fade-out, trigger the next part of the animation
           setTimeout(() => {
-            setSentencesAnimated(true);
-          }, 1000);
+            // setSentencesAnimated(true);
+            setReverseSentence(true);
+          }, 500);
+          
         }
       }, 40); // 100ms interval between each character
 
@@ -91,6 +93,8 @@ export default function App() {
 
   useEffect(() => {
     if (sentencesAnimated) {
+      console.log('sentencesAnimated', sentencesAnimated);
+
       let sentenceIndex = 0;
       const interval = setInterval(() => {
         if (sentenceIndex < sentences.length) {
@@ -113,11 +117,13 @@ export default function App() {
         } else {
           clearInterval(interval);
           setSentencesAnimated(false);
-          setReverseSentence(true);
+          setTimeout(() => {
+            setShowReverseAnimation(true);
+          }, 1000);
 
           setTimeout(() => {
-            setReverseSentence(false);
-          }, 1000);
+            setShowReverseAnimation(false);
+          }, 7500);
         }
       }, 300);
     }
@@ -139,11 +145,11 @@ export default function App() {
         } else {
           clearInterval(interval);
           setTimeout(() => {
-            setShowReverseAnimation(true);
+            // setAnimatedSentence(true);
+            setReverseSentence(false);
+            setSentencesAnimated(true);
           }, 1000);
-          setTimeout(() => {
-            setShowReverseAnimation(false);
-          }, 7500);
+
         }
       }, 100);
     }
@@ -170,7 +176,7 @@ export default function App() {
           </View>
         )}
 
-        {sentencesAnimated && !sentenceReversed && (
+        {sentencesAnimated  && (
           <View style={styles.sentencesContainer}>
             {sentences.map((item, index) => {
               return (
@@ -194,7 +200,7 @@ export default function App() {
           </View>
         )}
 
-        {sentenceReversed && (
+        {sentenceReversed &&(
           <View style={styles.sentencesContainer}>
             {sentences.slice().reverse().map((item, index) => {
               return (
