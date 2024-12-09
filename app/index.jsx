@@ -87,7 +87,7 @@ export default function App() {
       setTimeout(() => {
         clearInterval(intervalId);
         setShowText(false);
-      }, 4500);
+      }, 4600);
     }
   }, [fontLoaded]);
 
@@ -119,11 +119,11 @@ export default function App() {
           setSentencesAnimated(false);
           setTimeout(() => {
             setShowReverseAnimation(true);
-          }, 1000);
+          }, 500);
 
           setTimeout(() => {
             setShowReverseAnimation(false);
-          }, 7500);
+          }, 7600);
         }
       }, 300);
     }
@@ -136,7 +136,7 @@ export default function App() {
         if (sentenceIndex >= 0) {
           Animated.timing(sentenceOpacities.current[sentenceIndex], {
             toValue: 0,
-            duration: 100,
+            duration: 50,
             useNativeDriver: true,
           }).start();
 
@@ -144,11 +144,12 @@ export default function App() {
           triggerHapticFeedback();
         } else {
           clearInterval(interval);
+          setReverseSentence(false);
           setTimeout(() => {
             // setAnimatedSentence(true);
-            setReverseSentence(false);
+
             setSentencesAnimated(true);
-          }, 1000);
+          }, 500);
 
         }
       }, 100);
@@ -180,7 +181,7 @@ export default function App() {
           <View style={styles.sentencesContainer}>
             {sentences.map((item, index) => {
               return (
-                <Animated.View key={index}>
+                <Animated.View key={index} >
                   <Animated.Text
                     style={[
                       styles.sentencesText,
@@ -201,10 +202,10 @@ export default function App() {
         )}
 
         {sentenceReversed &&(
-          <View style={styles.sentencesContainer}>
-            {sentences.slice().reverse().map((item, index) => {
+          <View style={[styles.sentencesContainer,{marginBottom: 130}]}>
+            {sentences.slice().map((item, index) => {
               return (
-                <Animated.View key={index}>
+                <Animated.View key={index} >
                   <Animated.Text
                     style={[
                       styles.sentencesText,
