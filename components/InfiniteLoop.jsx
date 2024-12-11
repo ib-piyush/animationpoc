@@ -188,6 +188,8 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 80,
         fontWeight: 'bold',
+        fontStyle: 'italic',
+        
     },
     buttonContainer: {
         position: 'absolute',

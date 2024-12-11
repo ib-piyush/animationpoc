@@ -33,6 +33,8 @@ export default function App() {
     require('../assets/images/acne3.jpg'),
     require('../assets/images/acne4.jpg'),
     require('../assets/images/acne5.jpg'),
+    require('../assets/images/acne6.jpg'),
+    require('../assets/images/acne7.jpg'),
   ];
   const images2 = [
     require('../assets/images/gain1.jpg'),
@@ -40,6 +42,8 @@ export default function App() {
     require('../assets/images/gain3.jpg'),
     require('../assets/images/gain4.jpg'),
     require('../assets/images/gain5.jpg'),
+    require('../assets/images/gain6.jpg'),
+    require('../assets/images/gain7.jpg'),
   ];
   const images3 = [
     require('../assets/images/low1.jpg'),
@@ -47,6 +51,8 @@ export default function App() {
     require('../assets/images/low3.jpg'),
     require('../assets/images/low4.jpg'),
     require('../assets/images/low5.jpg'),
+    require('../assets/images/low6.jpg'),
+    require('../assets/images/low7.jpg'),
   ];
   const images4 = [
     require('../assets/images/junk.jpg'),
@@ -91,12 +97,12 @@ export default function App() {
       setTimeout(() => {
 
         setSentenceCompleted(true);
-      }, 6000);
+      }, 3700);
 
       setTimeout(() => {
         // clearInterval(intervalId);
         setShowText(false);
-      }, 5600);
+      }, 3600);
     }
   }, [fontLoaded]);
 
@@ -108,6 +114,7 @@ export default function App() {
       const imageInterval = setInterval(() => {
         if (imageIndex < images.length) {
           setCurrentImageIndex(imageIndex);
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
           imageIndex++;
         } else {
           clearInterval(imageInterval);
@@ -116,11 +123,13 @@ export default function App() {
           //   setReverseSentence(true);
           // }, 700);
         }
-      }, 250); // Change image every 100ms
+      }, 220); // Change image every 100ms
       setTimeout(() => {
+        console.log(fontLoaded, 'fontLoaded');
+        
         setSentenceCompleted(false);
         setSentence2Animated(true);
-      }, 1250);
+      }, 1520);
     }
   }, [sentenceCompleted]);
 
@@ -130,7 +139,7 @@ export default function App() {
       setTimeout(() => {
         setSentence2Animated(false);
         setSentence2Completed(true);
-      }, 2600);
+      }, 1600);
     }
     console.log('animated2Sentence', animated2Sentence);
 
@@ -143,6 +152,7 @@ export default function App() {
       const imageInterval = setInterval(() => {
         if (imageIndex < images2.length) {
           setCurrentImageIndex2(imageIndex);
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
           imageIndex++;
         } else {
           clearInterval(imageInterval);
@@ -151,21 +161,22 @@ export default function App() {
           //   setReverseSentence(true);
           // }, 700);
         }
-      }, 250); // Change image every 100ms
+      }, 220); // Change image every 100ms
       setTimeout(() => {
         setSentence2Completed(false);
         setSentence3Animated(true);
-      }, 1250);
+      }, 1520);
     }
 
   }, [sentence2Completed]);
 
   useEffect(() => {
     if (sentence3Animated) {
+      
       setTimeout(() => {
         setSentence3Animated(false);
         setSentence3Completed(true);
-      }, 2600);
+      }, 1600);
     }
 
   }, [sentence3Animated]);
@@ -176,6 +187,7 @@ export default function App() {
       const imageInterval = setInterval(() => {
         if (imageIndex < images3.length) {
           setCurrentImageIndex3(imageIndex);
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
           imageIndex++;
         } else {
           clearInterval(imageInterval);
@@ -184,11 +196,11 @@ export default function App() {
           //   setReverseSentence(true);
           // }, 700);
         }
-      }, 250); // Change image every 100ms
+      }, 220); // Change image every 100ms
       setTimeout(() => {
         setSentence3Completed(false);
         setSentence4Animated(true);
-      }, 1250);
+      }, 1520);
     }
 
   }, [sentence3Completed]);
@@ -199,7 +211,7 @@ export default function App() {
       setTimeout(() => {
         setSentence4Animated(false);
         setSentence5Animated(true);
-      }, 5600);
+      }, 4600);
     }
 
   }, [sentence4Animated]);
@@ -208,7 +220,7 @@ export default function App() {
       setTimeout(() => {
         setSentence5Animated(false);
         setSentence4Completed(true);
-      }, 2600);
+      }, 1600);
     }
 
   }, [sentence5Animated]);
@@ -219,6 +231,7 @@ export default function App() {
       const imageInterval = setInterval(() => {
         if (imageIndex < images4.length) {
           setCurrentImageIndex4(imageIndex);
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
           imageIndex++;
         } else {
           clearInterval(imageInterval);
@@ -227,11 +240,11 @@ export default function App() {
             setReverseSentence(true);
           }, 1000);
         }
-      }, 250); // Change image every 100ms
+      }, 220); // Change image every 100ms
       setTimeout(() => {
         setSentence4Completed(false);
         // setReverseSentence(true);
-      }, 1750);
+      }, 1520);
     }
 
   }, [sentence4Completed]);
@@ -309,7 +322,7 @@ export default function App() {
         {showText && (
           <AnimatedTextLine
             fontFamily="Arial"
-            sentences={["Over half of the", "population suffers", "from disorders like", "acne..."]}
+            sentences={["Over half of the", "population suffers", "from disorders ", "like acne..."]}
           />
 
         )}
@@ -353,10 +366,11 @@ export default function App() {
         {sentence4Animated && (
           <AnimatedTextLine
             fontFamily="tilted-font"
-            sentences={[" Not because of", "", "Genetics", "Lack of Exercise ", "or", "Healthcare Access..."]}
+            sentences={[" Not because of", "  ", "Genetics", "Lack of Exercise ", "or", "Healthcare Access..."]}
           />
         )}
         {sentence5Animated && (
+          
           <AnimatedTextLine
             fontFamily="tilted-font"
             sentences={["But because of", "Diet.",]}
@@ -397,7 +411,7 @@ export default function App() {
         {sentenceReversed && (
           <ImageBackground
             source={require('../assets/images/picnic.jpeg')}
-            style={[styles.sentencesContainer, { marginBottom: 0 }]}
+            style={[styles.sentencesContainer, { marginBottom: 0, marginLeft: '10%',  }]}
           >
             {sentences.slice().map((item, index) => {
               return (
@@ -440,16 +454,19 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   sentencesContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: '100%', // Ensure container takes the full width
+    alignItems: 'flex-start', // Align children to the left
+    justifyContent: 'flex-start', // Align vertically to the top if needed
+    paddingHorizontal: 20, // Add padding for better alignment
   },
   sentencesText: {
     fontSize: 52,
     color: 'white',
     marginBottom: 5,
-    textAlign: 'left',
+    textAlign: 'left', // Align text to the left
     fontFamily: 'tilted-font',
   },
+
   imageContainer: {
     alignItems: 'center',
     justifyContent: 'center',
