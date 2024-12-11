@@ -1,22 +1,63 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Animated } from 'react-native';
+import { StyleSheet, Text, View, Animated, ImageBackground, Image } from 'react-native';
 import * as Font from 'expo-font';
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Haptics from 'expo-haptics';
 import InfiniteLoop from '../components/InfiniteLoop';
-
+import AnimatedTextLine from '../components/AnimatedTextLine';
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
-  const [animatedSentence, setAnimatedSentence] = useState('');
-  const [letterOpacity] = useState(new Animated.Value(1));
   const [showText, setShowText] = useState(true);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
   const [sentencesAnimated, setSentencesAnimated] = useState(false);
   const [sentenceReversed, setReverseSentence] = useState(false);
   const [showReverseAnimation, setShowReverseAnimation] = useState(false);
+  const [sentenceCompleted, setSentenceCompleted] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentImageIndex2, setCurrentImageIndex2] = useState(0);
+  const [currentImageIndex3, setCurrentImageIndex3] = useState(0);
+  const [currentImageIndex4, setCurrentImageIndex4] = useState(0);
+  const [sentence2Animated, setSentence2Animated] = useState(false);
+  const [animated2Sentence, setAnimated2Sentence] = useState('');
+  const [sentence2Completed, setSentence2Completed] = useState(false);
+  const [sentence3Animated, setSentence3Animated] = useState(false);
+  const [sentence3Completed, setSentence3Completed] = useState(false);
+  const [sentence4Animated, setSentence4Animated] = useState(false);
+  const [sentence4Completed, setSentence4Completed] = useState(false);
+  const [sentence5Animated, setSentence5Animated] = useState(false);
 
-  const sentence = "  Over half of the suffers from the diet related diseases...";
+  const images = [
+    require('../assets/images/acne1.jpg'),
+    require('../assets/images/acne2.jpg'),
+    require('../assets/images/acne3.jpg'),
+    require('../assets/images/acne4.jpg'),
+    require('../assets/images/acne5.jpg'),
+  ];
+  const images2 = [
+    require('../assets/images/gain1.jpg'),
+    require('../assets/images/gain2.jpg'),
+    require('../assets/images/gain3.jpg'),
+    require('../assets/images/gain4.jpg'),
+    require('../assets/images/gain5.jpg'),
+  ];
+  const images3 = [
+    require('../assets/images/low1.jpg'),
+    require('../assets/images/low2.jpg'),
+    require('../assets/images/low3.jpg'),
+    require('../assets/images/low4.jpg'),
+    require('../assets/images/low5.jpg'),
+  ];
+  const images4 = [
+    require('../assets/images/junk.jpg'),
+    require('../assets/images/junk2.png'),
+    require('../assets/images/junk3.jpg'),
+    require('../assets/images/junk4.jpg'),
+    require('../assets/images/junk5.jpg'),
+    require('../assets/images/junk6.jpg'),
+    require('../assets/images/junk7.jpg'),
+  ];
+
   const sentences = [
     "Get rid of acne",
     "Reduce body fat",
@@ -47,54 +88,155 @@ export default function App() {
 
   useEffect(() => {
     if (fontLoaded) {
-      setAnimatedSentence('');
-      let currentIndex = 0;
-
-      const intervalId = setInterval(() => {
-        // Ensure currentIndex is within bounds before updating the sentence
-        if (currentIndex < sentence.length) {
-          const nextCharacter = sentence[currentIndex]; // safely get the character
-          if (nextCharacter !== undefined) {
-            setAnimatedSentence((prev) => prev + nextCharacter); // concatenate safely
-          }
-
-          // Trigger haptic feedback every 5 characters
-          if (currentIndex % 5 === 0) {
-            triggerHapticFeedback();
-          }
-
-          currentIndex++; // Move to the next character
-        } else {
-          clearInterval(intervalId); // Stop the interval once the sentence is complete
-
-          // Fade out the sentence with opacity animation
-          Animated.timing(letterOpacity, {
-            toValue: 0,
-            duration: 500,
-            useNativeDriver: true,
-          }).start();
-
-          // After the fade-out, trigger the next part of the animation
-          setTimeout(() => {
-            // setSentencesAnimated(true);
-            setReverseSentence(true);
-          }, 500);
-          
-        }
-      }, 40); // 100ms interval between each character
-
-      // Stop the interval after 9 seconds, to prevent any infinite loops
       setTimeout(() => {
-        clearInterval(intervalId);
+
+        setSentenceCompleted(true);
+      }, 6000);
+
+      setTimeout(() => {
+        // clearInterval(intervalId);
         setShowText(false);
-      }, 4600);
+      }, 5600);
     }
   }, [fontLoaded]);
 
+
+  useEffect(() => {
+    if (sentenceCompleted) {
+      let imageIndex = 0;
+
+      const imageInterval = setInterval(() => {
+        if (imageIndex < images.length) {
+          setCurrentImageIndex(imageIndex);
+          imageIndex++;
+        } else {
+          clearInterval(imageInterval);
+
+          // setTimeout(() => {
+          //   setReverseSentence(true);
+          // }, 700);
+        }
+      }, 250); // Change image every 100ms
+      setTimeout(() => {
+        setSentenceCompleted(false);
+        setSentence2Animated(true);
+      }, 1250);
+    }
+  }, [sentenceCompleted]);
+
+  useEffect(() => {
+    if (sentence2Animated) {
+
+      setTimeout(() => {
+        setSentence2Animated(false);
+        setSentence2Completed(true);
+      }, 2600);
+    }
+    console.log('animated2Sentence', animated2Sentence);
+
+  }, [sentence2Animated]);
+
+  useEffect(() => {
+    if (sentence2Completed) {
+      let imageIndex = 0;
+
+      const imageInterval = setInterval(() => {
+        if (imageIndex < images2.length) {
+          setCurrentImageIndex2(imageIndex);
+          imageIndex++;
+        } else {
+          clearInterval(imageInterval);
+
+          // setTimeout(() => {
+          //   setReverseSentence(true);
+          // }, 700);
+        }
+      }, 250); // Change image every 100ms
+      setTimeout(() => {
+        setSentence2Completed(false);
+        setSentence3Animated(true);
+      }, 1250);
+    }
+
+  }, [sentence2Completed]);
+
+  useEffect(() => {
+    if (sentence3Animated) {
+      setTimeout(() => {
+        setSentence3Animated(false);
+        setSentence3Completed(true);
+      }, 2600);
+    }
+
+  }, [sentence3Animated]);
+  useEffect(() => {
+    if (sentence3Completed) {
+      let imageIndex = 0;
+
+      const imageInterval = setInterval(() => {
+        if (imageIndex < images3.length) {
+          setCurrentImageIndex3(imageIndex);
+          imageIndex++;
+        } else {
+          clearInterval(imageInterval);
+
+          // setTimeout(() => {
+          //   setReverseSentence(true);
+          // }, 700);
+        }
+      }, 250); // Change image every 100ms
+      setTimeout(() => {
+        setSentence3Completed(false);
+        setSentence4Animated(true);
+      }, 1250);
+    }
+
+  }, [sentence3Completed]);
+
+  useEffect(() => {
+    if (sentence4Animated) {
+
+      setTimeout(() => {
+        setSentence4Animated(false);
+        setSentence5Animated(true);
+      }, 5600);
+    }
+
+  }, [sentence4Animated]);
+  useEffect(() => {
+    if (sentence5Animated) {
+      setTimeout(() => {
+        setSentence5Animated(false);
+        setSentence4Completed(true);
+      }, 2600);
+    }
+
+  }, [sentence5Animated]);
+  useEffect(() => {
+    if (sentence4Completed) {
+      let imageIndex = 0;
+
+      const imageInterval = setInterval(() => {
+        if (imageIndex < images4.length) {
+          setCurrentImageIndex4(imageIndex);
+          imageIndex++;
+        } else {
+          clearInterval(imageInterval);
+
+          setTimeout(() => {
+            setReverseSentence(true);
+          }, 1000);
+        }
+      }, 250); // Change image every 100ms
+      setTimeout(() => {
+        setSentence4Completed(false);
+        // setReverseSentence(true);
+      }, 1750);
+    }
+
+  }, [sentence4Completed]);
   useEffect(() => {
     if (sentencesAnimated) {
-      console.log('sentencesAnimated', sentencesAnimated);
-
       let sentenceIndex = 0;
       const interval = setInterval(() => {
         if (sentenceIndex < sentences.length) {
@@ -146,13 +288,10 @@ export default function App() {
           clearInterval(interval);
           setReverseSentence(false);
           setTimeout(() => {
-            // setAnimatedSentence(true);
-
             setSentencesAnimated(true);
-          }, 500);
-
+          }, 300);
         }
-      }, 100);
+      }, 70);
     }
   }, [sentenceReversed]);
 
@@ -164,24 +303,78 @@ export default function App() {
     <>
       <StatusBar style="light" />
       <LinearGradient
-        colors={['#001400', '#001400', '#001400', '#001400']}
+        colors={['#001400', '#001400', '#001400', '#001400', '#001400',]}
         style={styles.container}
       >
         {showText && (
-          <View style={styles.textContainer}>
-            <Animated.Text
-              style={[styles.text, { fontFamily: 'tilted-font', opacity: letterOpacity, textAlign: 'center' }]}
-            >
-              {animatedSentence}
-            </Animated.Text>
+          <AnimatedTextLine
+            fontFamily="Arial"
+            sentences={["Over half of the", "population suffers", "from disorders like", "acne..."]}
+          />
+
+        )}
+        {sentenceCompleted && (
+          <View style={[styles.imageContainer,]}>
+            <Image
+              source={images[currentImageIndex]}
+              style={styles.image}
+            />
           </View>
         )}
+        {sentence2Animated && (
+          <AnimatedTextLine
+            fontFamily="tilted-font"
+            sentences={["Weight gain...",]}
+          />
+        )}
+        {sentence2Completed && (
+          <View style={styles.imageContainer}>
+            <Image
+              source={images2[currentImageIndex2]}
+              style={styles.image}
+            />
+          </View>
+        )}
+        {sentence3Animated && (
 
-        {sentencesAnimated  && (
+          <AnimatedTextLine
+            fontFamily="tilted-font"
+            sentences={["and low energy...",]}
+          />
+        )}
+        {sentence3Completed && (
+          <View style={styles.imageContainer}>
+            <Image
+              source={images3[currentImageIndex3]}
+              style={styles.image}
+            />
+          </View>
+        )}
+        {sentence4Animated && (
+          <AnimatedTextLine
+            fontFamily="tilted-font"
+            sentences={[" Not because of", "", "Genetics", "Lack of Exercise ", "or", "Healthcare Access..."]}
+          />
+        )}
+        {sentence5Animated && (
+          <AnimatedTextLine
+            fontFamily="tilted-font"
+            sentences={["But because of", "Diet.",]}
+          />
+        )}
+        {sentence4Completed && (
+          <View style={styles.imageContainer}>
+            <Image
+              source={images4[currentImageIndex4]}
+              style={styles.image}
+            />
+          </View>
+        )}
+        {sentencesAnimated && (
           <View style={styles.sentencesContainer}>
             {sentences.map((item, index) => {
               return (
-                <Animated.View key={index} >
+                <Animated.View key={index}>
                   <Animated.Text
                     style={[
                       styles.sentencesText,
@@ -201,11 +394,14 @@ export default function App() {
           </View>
         )}
 
-        {sentenceReversed &&(
-          <View style={[styles.sentencesContainer,{marginBottom: 130}]}>
+        {sentenceReversed && (
+          <ImageBackground
+            source={require('../assets/images/picnic.jpeg')}
+            style={[styles.sentencesContainer, { marginBottom: 0 }]}
+          >
             {sentences.slice().map((item, index) => {
               return (
-                <Animated.View key={index} >
+                <Animated.View key={index}>
                   <Animated.Text
                     style={[
                       styles.sentencesText,
@@ -219,10 +415,11 @@ export default function App() {
                 </Animated.View>
               );
             })}
-          </View>
+          </ImageBackground>
         )}
         {showReverseAnimation && <InfiniteLoop fontFamily="tilted-font" />}
       </LinearGradient>
+
     </>
   );
 }
@@ -236,14 +433,15 @@ const styles = StyleSheet.create({
   textContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: '90%',
+    width: '80%',
   },
   text: {
     fontSize: 40,
     color: '#fff',
   },
   sentencesContainer: {
-    marginTop: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   sentencesText: {
     fontSize: 52,
@@ -251,5 +449,16 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     textAlign: 'left',
     fontFamily: 'tilted-font',
+  },
+  imageContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+
+  },
+  image: {
+    width: 350,
+    height: 300,
+    resizeMode: 'contain',
   },
 });
