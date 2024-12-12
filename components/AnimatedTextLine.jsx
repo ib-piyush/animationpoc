@@ -9,7 +9,7 @@ const AnimatedCharacter = ({ char, delay }) => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      opacity.value = withTiming(1, { duration: 0 });
+      opacity.value = withTiming(1, { duration: 0 });// Adjust duration as needed for each char
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     }, delay);
 
@@ -48,7 +48,7 @@ const SentenceAnimation = ({ sentences }) => {
   const sentenceDelays = sentences.map((sentence, index) => {
     const previousSentencesTime = sentences
       .slice(0, index)
-      .reduce((totalTime, prevSentence) => totalTime + prevSentence.length * 20 + 450, 0); // Adjust timing
+      .reduce((totalTime, prevSentence) => totalTime + prevSentence.length * 20 + 450, 0); // Adjust timing to increase rate of text animation for each sentence
     return previousSentencesTime;
   });
 
@@ -61,7 +61,7 @@ const SentenceAnimation = ({ sentences }) => {
       {sentences.map((sentence, index) => (
         <View style={styles.lineContainer} key={index}>
           {sentence.split('').map((char, charIndex) => (
-            <AnimatedCharacter key={charIndex} char={char} delay={sentenceDelays[index] + charIndex * 50} />
+            <AnimatedCharacter key={charIndex} char={char} delay={sentenceDelays[index] + charIndex * 50} />// Adjust delay for each char
           ))}
         </View>
       ))}

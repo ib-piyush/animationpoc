@@ -80,7 +80,7 @@ export default function App() {
   const triggerHapticFeedback = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
   };
-
+//to pr edload the font
   useLayoutEffect(() => {
     const loadFont = async () => {
       await Font.loadAsync({
@@ -92,6 +92,7 @@ export default function App() {
     loadFont();
   }, []);
 
+  //to start the animation of acne images animation  and stop acne text animation 
   useEffect(() => {
     if (fontLoaded) {
       setTimeout(() => {
@@ -106,7 +107,7 @@ export default function App() {
     }
   }, [fontLoaded]);
 
-
+ //to stop the animation of acne images and start  text animation 2nd set of animation 
   useEffect(() => {
     if (sentenceCompleted) {
       let imageIndex = 0;
@@ -123,7 +124,7 @@ export default function App() {
           //   setReverseSentence(true);
           // }, 700);
         }
-      }, 220); // Change image every 100ms
+      }, 220); // Change image every 200ms
       setTimeout(() => {
         console.log(fontLoaded, 'fontLoaded');
         
@@ -133,6 +134,7 @@ export default function App() {
     }
   }, [sentenceCompleted]);
 
+ //same pattern follows
   useEffect(() => {
     if (sentence2Animated) {
 
@@ -144,7 +146,7 @@ export default function App() {
     console.log('animated2Sentence', animated2Sentence);
 
   }, [sentence2Animated]);
-
+ //same pattern follows
   useEffect(() => {
     if (sentence2Completed) {
       let imageIndex = 0;
@@ -161,7 +163,7 @@ export default function App() {
           //   setReverseSentence(true);
           // }, 700);
         }
-      }, 220); // Change image every 100ms
+      }, 220); // Change image every 200ms
       setTimeout(() => {
         setSentence2Completed(false);
         setSentence3Animated(true);
@@ -169,7 +171,7 @@ export default function App() {
     }
 
   }, [sentence2Completed]);
-
+ //same pattern follows
   useEffect(() => {
     if (sentence3Animated) {
       
@@ -204,7 +206,7 @@ export default function App() {
     }
 
   }, [sentence3Completed]);
-
+ //same pattern follows
   useEffect(() => {
     if (sentence4Animated) {
 
@@ -215,6 +217,7 @@ export default function App() {
     }
 
   }, [sentence4Animated]);
+   //same pattern follows
   useEffect(() => {
     if (sentence5Animated) {
       setTimeout(() => {
@@ -224,6 +227,7 @@ export default function App() {
     }
 
   }, [sentence5Animated]);
+   //same pattern follows
   useEffect(() => {
     if (sentence4Completed) {
       let imageIndex = 0;
@@ -274,11 +278,11 @@ export default function App() {
           setSentencesAnimated(false);
           setTimeout(() => {
             setShowReverseAnimation(true);
-          }, 500);
+          }, 500);//time after which the reverse animation will start
 
           setTimeout(() => {
             setShowReverseAnimation(false);
-          }, 7600);
+          }, 7600); //time after which the reverse animation will stop
         }
       }, 300);
     }
